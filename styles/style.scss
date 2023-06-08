@@ -1,0 +1,312 @@
+@import "variables";
+@import "mixins";
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.navbar {
+    height: 120px;
+    width: 80%;
+    margin-left: 10%;
+
+    &-title {
+        font-weight: bold;
+    }
+
+    &-menu, &-menu-icons {
+        list-style-type: none;
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+        font-size: 20px;
+        color: $color-gray;
+        cursor: pointer;
+
+        .active {
+            color: $color-black;
+            font-weight: bold;
+        }
+    }
+
+    &-menu-icons {
+        li {
+            color: $color-black;
+        }
+
+        .basket-icon {
+            position: relative;
+
+            &-count {
+                width: 20px;
+                height: 20px;
+                background-color: $color-black;
+                color: white;
+                border-radius: 50%;
+                position: absolute;
+                right: -0.7rem;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1rem;
+                font-weight: bold;
+
+                &:empty {
+                    display: none;
+                }
+            }
+        }
+    }
+
+}
+
+.slider {
+    width: 80%;
+    margin: auto;
+    height: 600px;
+
+    img {
+        height: 600px;
+    }
+}
+
+.store {
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    
+    &-filter-background {
+        position: absolute;
+        left: 0;
+        width: 600px;
+        height: 900px;
+        background-color: #efeef6;
+        z-index: -1;
+    }
+
+    &-filter-list {
+        position: absolute;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        min-height: 650px;
+        gap: 32px;
+        
+        li {
+            color: $color-gray;
+            font-size: 1rem;
+            cursor: pointer;
+            
+            &:hover {
+                color: $color-gray;
+            }
+
+            &.active {
+                color: $color-purple;
+                font-size: 1.5rem;
+                font-weight: bold;
+
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    position: absolute;
+                    left: 10px;
+                    margin-top: 10px;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: $color-purple;
+                }
+            }
+        }
+    }
+}
+
+.book-card {
+    height: 400px;
+
+    img {
+        height: 400px;
+    }
+
+    &-info {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    
+        &-author {
+            font-family: "Open Sans", sans-serif;
+            color: $color-gray;
+        }
+    
+        &-name {
+            color: $color-black;
+        }
+    
+        &-stars {
+            
+            .bi-star-fill {
+                color: #eeedf5;
+                font-size: 1.2rem;
+                margin-right: 5px;
+    
+                &.active {
+                    color: #f2c94c;
+                }
+            }
+        }
+    
+        &-reviews {
+            color: $color-gray;
+        }
+    }
+
+    &-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: "Open Sans", sans-serif;
+        color: $color-gray;
+    }
+
+    .price {
+        color: $color-black;
+    }
+
+    .price-before-discount {
+        color: $color-gray;
+        text-decoration: line-through;
+    }
+}
+
+.btn-purple {
+    cursor: pointer;
+    border: 2px solid $color-purple;
+    color: $color-purple;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px 0;
+    @include transition();
+    
+    &:hover {
+        background-color: $color-purple;
+        color: white;
+    }
+}
+
+.basket-modal {
+    opacity: 0;
+    background-color: rgba($color-black, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    @include transition();
+
+    &.active {
+        opacity: 1;
+        z-index: 9;
+    }
+
+    &.active &-content {
+        width: 450px;
+    }
+
+    &-content {
+        width: 0;
+        background-color: white;
+        height: 100%;
+        float: right;
+        position: relative;
+        @include transition();
+
+        .bi-x {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: $color-black;
+            cursor: pointer;
+        }
+
+        h2 {
+            color: $color-black;
+            margin-top: 5rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        &-list {
+            list-style-type: none;
+            padding: 0 10px;
+            max-height: 650px;
+            overflow-y: auto;
+            
+            &-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .basket-item-info {
+                    width: 250px;
+
+                    .book-name {
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+
+                    .book-price {
+                        font-size: 16px;
+                    }
+
+                    .book-remove {
+                        font-size: 16px;
+                        cursor: pointer;
+                        color: $color-gray;
+                    }
+                }
+
+                .book-count {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: $color-black;
+
+                    .increase, .decrease {
+                        cursor: pointer;
+                        color: $color-purple;
+                    }
+                }
+            }
+        }
+
+        &-total {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 5%;
+            width: inherit;
+
+            button {
+                width: 250px;
+            }
+
+            &-price:empty + button {
+                display: none;
+            }
+        }
+    }
+}
+
